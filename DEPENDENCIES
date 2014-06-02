@@ -1,0 +1,20 @@
+KDE4        (for icon theme)
+Qt 4.8.6    (Qt5 does not work)
+QJson 0.8.1 (AUR support)
+
+C++11 compiler (tested with gcc 4.9)
+
+/bin/pacman (for package management)
+/bin/pacdiff(for configuration management)
+vimdiff     (for pacdiff)
+/bin/curl   (for news)
+
+provides:
+"%scriptdir/system-update"        (full system update .)
+"%documentationdir/pakman.html"   (integrated help)
+
+in progress:
+/bin/dbus-launch (optional, not used atm)
+/bin/konsole     (for all console stuff)
+/bin/kdesu       (for switching to root)
+/bin/bash        (for all console stuff)

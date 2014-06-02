@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html><head><meta name="qrichtext" content="1; charset=utf-8" /><style type="text/css">
+p, li { white-space: pre-wrap; }
+</style></head><body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
+<p style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">This software is licensed under GPL v.2. (<a href="http://www.gnu.org/licenses/gpl-2.0.html">http://www.gnu.org/licenses/gpl-2.0.html</a>) Full information can be found in the about dialog.</p>
+
+<h2>package classification</h2>
+<p><table>
+<tr><td><img height="16" width="16" src="%security-high%" /></td><td valign="middle"> up to date.</td></tr>
+<tr><td><img height="16" width="16" src=":/pakman/resource/icons/foreign_green.png" /></td><td valign="middle"> foreign package using the latest known version.</td></tr>
+<tr><td><img height="16" width="16" src="%security-low%" /></td><td valign="middle"> outdated.</td></tr>
+<tr><td><img height="16" width="16" src=":/pakman/resource/icons/foreign_red.png" /></td><td valign="middle"> outdated foreign package.</td></tr>
+<tr><td><img height="16" width="16" src="%security-medium%" /></td><td valign="middle"> newer than the repository version.</td></tr>
+<tr><td><img height="16" width="16" src=":/pakman/resource/icons/notinstalled.png" /></td><td valign="middle"> not installed.</td></tr>
+</table>
+</p>
+
+<h2>not so visible functions:</h2>
+<p><ul>
+<li>Search edit can clear search with <b>Esc</b> key.</li>
+<li>Double-click on filter-settings header will collapse / expand the view</li>
+<li>Double-click on pacman in groups will collapse / expand the node</li>
+</ul></p>
+
+<h2>howto</h2>
+<h3>merge config files:</h3>
+<p>After full system update, by default the pacdiff script will be run. Option (V) will show the diff in vimdiff.</p>
+<p><table style="background-color:lightgray;"><tr><td>This block quotes: <a href="https://wiki.archlinux.org/index.php/vim#Merging_files_.28vimdiff.29">https://wiki.archlinux.org/index.php/vim#Merging_files_.28vimdiff.29</a><br></td></tr>
+<tr><td><p>Vim includes a diff editor, a program that aids the merging of differences between two (or more, with limited usefulness) files. <code style="display:inline-block; padding: 0.1em 0.3em;">vimdiff</code> opens a horizontally multi-paned view that colorfully highlights differences, each pane containing one of the files to be examined/edited. Vim has <a href="https://wiki.archlinux.org/index.php/vim#Usage">several modes</a>, two important ones being <b>Insert mode</b>, which lets text be edited, and <b>Command mode</b>, which lets the cursor be moved move across windows and lines. Begin by running <code style="display:inline-block; padding: 0.1em 0.3em;">vimdiff file1 file2</code>. Some example commands follow.
+</p>
+<dl>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">]c</code>                          &#160;</dt>
+<dd> next difference
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">[c</code>                          &#160;</dt>
+<dd> previous difference
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">Ctrl+w+w</code>                    &#160;</dt>
+<dd> switch windows
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">i</code>                           &#160;</dt>
+<dd> enter Insert mode
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">Esc</code>                         &#160;</dt>
+<dd> exit Insert mode
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">p</code>                           &#160;</dt>
+<dd> paste
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">do</code>                          &#160;</dt>
+<dd> diff obtain. When the cursor is on a (highlighted) difference, copies the changes from the other window to the current one.
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">dp</code>                          &#160;</dt>
+<dd> diff put. Inverse of diff obtain; copies the changes from current windows to the other one.
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">zo</code>                          &#160;</dt>
+<dd> open folded text
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">zc</code>                          &#160;</dt>
+<dd> close folded text
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">:diffupdate</code>&#160;</dt>
+<dd> re-scan the files for differences
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">yy</code>                          &#160;</dt>
+<dd> copy a line
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">dd</code>                          &#160;</dt>
+<dd> cut a line
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">:wq</code>                         &#160;</dt>
+<dd> save and exit the current window
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">:wqa</code>                        &#160;</dt>
+<dd> save and exit both windows
+</dd>
+<dt><code style="display:inline-block; padding: 0.1em 0.3em;">:q!</code>                         &#160;</dt>
+<dd> exit without saving
+</dd>
+</dl>
+</td></tr></table></p>
+<h3>open links with firefox in kde:</h3>
+<p><a href="http://kb.mozillazine.org/Default_browser#KDE">http://kb.mozillazine.org/Default_browser#KDE</a>
+</p>
+
+<h2>provides:</h2>
+<p>/usr/bin/pakman
+/usr/bin/system-update (script)<br>
+</p>
+<h2>features planned:</h2>
+<p><ol>
+<li>(de)install packages triggered from the ui</li>
+<li>better AUR-support</li>
+<li>will try to make a few things more straightforward in the ui. i also need help to complete and or improve the icon set.</li>
+<li>more stuff</li>
+<li>find an easy to use alternative for vimdiff</li>
+</ol></p>
+</body></html>

@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/pakman/resource">
+        <file>icons/help.png</file>
+        <file>icons/installed_user.png</file>
+        <file>icons/installed.png</file>
+        <file>icons/newer_user.png</file>
+        <file>icons/newer.png</file>
+        <file>icons/notinstalled.png</file>
+        <file>icons/outdated_user.png</file>
+        <file>icons/outdated.png</file>
+        <file>icons/unrequired_user.png</file>
+        <file>icons/unrequired.png</file>
+        <file>icons/foreign_green.png</file>
+        <file>icons/foreign_red.png</file>
+    </qresource>
+</RCC>
