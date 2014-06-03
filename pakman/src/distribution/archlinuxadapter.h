@@ -21,7 +21,7 @@
 #ifndef ARCHLINUXINFO_H
 #define ARCHLINUXINFO_H
 
-#include "src/data/distribution/distributioninfo.h"
+#include "src/distribution/distributioninfo.h"
 
 
 /**

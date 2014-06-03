@@ -41,6 +41,12 @@ public:
 	 * @return true if supported. The default implementation will clear the output and return false
 	 */
 	virtual bool retrieveNews(QString& output) const;
+	/**
+	 * @brief will format a rss news item
+	 * @return news item as html
+	 */
+	virtual QString formatNews(const QString& link, const QString& title, const QString& date,
+	                           const QString& text) const;
 
 	/**
 	 * @brief will load package info for all in list and store in a temp location

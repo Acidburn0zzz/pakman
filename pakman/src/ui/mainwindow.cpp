@@ -31,7 +31,7 @@
 #include "src/ui/whatprovidesme.h"
 #include "src/commands/pacman.h"
 #include "src/strconstants.h"
-#include "src/data/distribution/distributioninfo.h"
+#include "src/distribution/distributioninfo.h"
 #include "src/commands/terminal.h"
 #include "src/commands/pacmanlogviewer.h"
 
@@ -228,7 +228,7 @@ void MainWindow::updateDistributionNewsAsync()
 			const bool supported = m_distribution.retrieveNews(news);
 			updateStatusRunningTask(99);
 			return [this, news, supported](){
-					ui->infoTabs->showNews(news);
+					ui->infoTabs->showNews(news, m_distribution);
 					updateStatusRunningTask(1);
 			};
 	}, TaskProcessor::eTaskUpdateDistributionNews)) {

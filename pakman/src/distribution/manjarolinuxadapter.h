@@ -21,7 +21,7 @@
 #ifndef MANJAROLINUXADAPTER_H
 #define MANJAROLINUXADAPTER_H
 
-#include "src/data/distribution/archlinuxinfo.h"
+#include "src/distribution/archlinuxadapter.h"
 
 
 class ManjaroLinuxAdapter : public ArchLinuxAdapter
@@ -35,6 +35,12 @@ public:
 	 * @brief No own implementation, just overrides the url
 	 */
 	virtual bool retrieveNews(QString& output) const override;
+	/**
+	 * @brief will format a rss news item
+	 * @return news item as html
+	 */
+	virtual QString formatNews(const QString& link, const QString& title, const QString& date,
+	                           const QString& text) const override;
 };
 
 #endif // MANJAROLINUXADAPTER_H

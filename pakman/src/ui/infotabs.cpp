@@ -24,6 +24,7 @@
 #include <QDomDocument>
 #include <kiconloader.h>
 #include "src/data/packagedata.h"
+#include "src/distribution/distributioninfo.h"
 #include "src/strconstants.h"
 
 
@@ -56,9 +57,9 @@ void InfoTabs::showHelp(const QString& help, bool activate)
 		ui->tabWidget->setCurrentWidget(ui->tabInfo);
 }
 
-void InfoTabs::showNews(const QString& news)
+void InfoTabs::showNews(const QString& news, const DistributionInfo& formatter)
 {
-	ui->newsBrowser->setHtml(parseRssNews(news));
+	ui->newsBrowser->setHtml(parseRssNews(news, formatter));
 }
 
 void InfoTabs::showPackageInfo(const PackageDetailData& pkg, const PackageDetailData* pkgInstalled,
@@ -128,7 +129,7 @@ void InfoTabs::showUpdateReport(const QList<PackageDetailData>& pacmanInstalled,
  *
  * based on Octopi
  */
-QString InfoTabs::parseRssNews(const QString& news)
+QString InfoTabs::parseRssNews(const QString& news, const DistributionInfo& formatter)
 {
   QString html("<style type=\"text/css\">table { margin-bottom: 30px; } big { font-size : large; }</style>");
 
@@ -197,8 +198,7 @@ QString InfoTabs::parseRssNews(const QString& news)
 					text = text.nextSibling();
 				}
 
-				html += "<table style=\"margin-top:5px;\"><tr><td><a href=\"" + itemLink + "\"><b><big>" + itemTitle
-				       + "</b></big></a>  (" + itemPubDate + ")" + itemDescription + "</td></tr></table>";
+				html += formatter.formatNews(itemLink, itemTitle, itemPubDate, itemDescription);
 				itemCounter++;
 			}
 		}

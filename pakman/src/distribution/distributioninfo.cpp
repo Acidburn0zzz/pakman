@@ -41,6 +41,21 @@ bool DistributionInfo::retrieveNews(QString& output) const
 }
 
 /**
+ * @brief default style is the Arch Linux style
+ * @param link  (url to the news item)
+ * @param title (headline)
+ * @param date  (creation date of the entry)
+ * @param text
+ * @return as html (as table per item)
+ */
+QString DistributionInfo::formatNews(const QString& link, const QString& title, const QString& date,
+                                     const QString& text) const
+{
+	return "<table style=\"margin-top:5px;\"><tr><td><a href=\"" + link + "\"><b><big>" + title
+	    + "</b></big></a>  (" + date + ")" + text + "</td></tr></table>";
+}
+
+/**
  * @brief AUR is not supported without specialization
  */
 bool DistributionInfo::fetchAurInfoFor(const QList<PackageListData>& ) const

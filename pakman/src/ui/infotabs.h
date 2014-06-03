@@ -29,6 +29,7 @@ class InfoTabs;
 
 class PackageDetailData;
 class PackageListData;
+class DistributionInfo;
 
 
 /**
@@ -52,7 +53,7 @@ public:
 	 * @brief will format news and update the text of the newsBrowser
 	 * @param news (rss style)
 	 */
-	void showNews(const QString& news);
+	void showNews(const QString& news, const DistributionInfo& formatter);
 	/**
 	 * @brief will format detail information about a package and show in the infoBrowser
 	 * @param pkg (usually obtained via Pacman::getPackageDetails)
@@ -73,7 +74,7 @@ private:
 	 * @param rss style news
 	 * @return html like news
 	 */
-	QString parseRssNews(const QString& news);
+	QString parseRssNews(const QString& news, const DistributionInfo& formatter);
 	/**
 	 * @brief will format detail information about a single package for display in the infoBrowser
 	 * @param pkg detail information

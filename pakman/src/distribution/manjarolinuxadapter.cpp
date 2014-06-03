@@ -33,3 +33,18 @@ bool ManjaroLinuxAdapter::retrieveNews(QString &output) const
 	output = DistributionInfo::retrieveDistroNews("http://manjaro.org/feed/");
 	return true;
 }
+
+/**
+ * @brief custom style for Manjaro Linux
+ * @param link  (url to the news item)
+ * @param title (headline)
+ * @param date  (creation date of the entry)
+ * @param text
+ * @return as html (as table per item)
+ */
+QString ManjaroLinuxAdapter::formatNews(const QString& link, const QString& title, const QString& date,
+                                        const QString& text) const
+{
+	return "<table style=\"margin-top:5px;\"><tr><td><a href=\"" + link + "\"><b><big>" + title
+	    + "</b></big></a>  (" + date + ")<br><br>" + text + "</td></tr></table>";
+}

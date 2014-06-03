@@ -26,8 +26,8 @@
 #include <QFile>
 #include "external/qt-solutions/QtSingleApplication"
 #include "src/commands/taskprocessor.h"
-#include "src/data/distribution/archlinuxinfo.h"
-#include "src/data/distribution/manjarolinuxadapter.h"
+#include "src/distribution/archlinuxadapter.h"
+#include "src/distribution/manjarolinuxadapter.h"
 #include "src/strconstants.h"
 
 

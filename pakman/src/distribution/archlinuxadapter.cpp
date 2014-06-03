@@ -18,7 +18,7 @@
 *
 */
 
-#include "archlinuxinfo.h"
+#include "archlinuxadapter.h"
 
 #include <iostream>
 #include <QDir>
