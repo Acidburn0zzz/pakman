@@ -434,7 +434,7 @@ QString strSystemStatusReportL1()
  */
 QString strSystemStatusReportL2()
 {
-	return QObject::tr("%1 packages can be updated via system upgrade (Ctrl+U):");
+	return QObject::tr("%1 packages can be updated via system upgrade (Ctrl+U)");
 }
 
 /**

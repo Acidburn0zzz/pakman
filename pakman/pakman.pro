@@ -59,6 +59,7 @@ SOURCES += src/main.cpp \
            src/data/packagerepository.cpp \
            src/data/distribution/distributioninfo.cpp \
            src/data/distribution/archlinuxinfo.cpp \
+           src/data/distribution/manjarolinuxadapter.cpp \
            src/data/model/defaultpackagefilter.cpp \
            src/data/model/packageitem.cpp \
            src/data/model/packagemodel.cpp \
@@ -86,6 +87,7 @@ HEADERS += src/ui/groupbox.h \
            src/data/packagerepository.h \
            src/data/distribution/distributioninfo.h \
            src/data/distribution/archlinuxinfo.h \
+           src/data/distribution/manjarolinuxadapter.h \
            src/data/model/defaultpackagefilter.h \
            src/data/model/packagefilter.h \
            src/data/model/packageitem.h \

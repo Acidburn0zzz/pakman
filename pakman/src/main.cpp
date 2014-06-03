@@ -21,10 +21,13 @@
 #include "ui/mainwindow.h"
 
 #include <iostream>
+#include <memory>
 #include <unistd.h>
+#include <QFile>
 #include "external/qt-solutions/QtSingleApplication"
 #include "src/commands/taskprocessor.h"
 #include "src/data/distribution/archlinuxinfo.h"
+#include "src/data/distribution/manjarolinuxadapter.h"
 #include "src/strconstants.h"
 
 
@@ -45,8 +48,25 @@ int main(int argc, char *argv[])
 	}
 
 	TaskProcessor cpu;
-	ArchLinuxAdapter distribution; //TODO: support other distributions
-	MainWindow w(distribution, cpu);
+	// initialize distribution specific adapter
+	std::unique_ptr<DistributionInfo> distribution;
+	{
+		QFile file("/etc/os-release");
+		if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+			QString contents = file.readAll();
+			file.close();
+
+			if (contents.contains(QRegExp("Arch Linux"))) {
+				distribution.reset(new ArchLinuxAdapter());
+			} else if (contents.contains(QRegExp("Manjaro"))) {
+				distribution.reset(new ManjaroLinuxAdapter());
+			}
+		}
+		if (distribution == nullptr) {
+			distribution.reset(new ArchLinuxAdapter); // fallback is Arch Linux
+		}
+	}
+	MainWindow w(*distribution, cpu);
 	app.setActivationWindow(&w);
 	app.connect(&app, SIGNAL(messageReceived(const QString &)), &app, SLOT(activateWindow()));
 	w.show();
