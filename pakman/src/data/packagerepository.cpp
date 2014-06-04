@@ -290,10 +290,10 @@ std::size_t PackageRepository::countInstalled() const
 	});
 }
 
-std::size_t PackageRepository::countOutdated() const
+std::size_t PackageRepository::countOutdated(const bool noForeign) const
 {
-	return std::count_if(m_listOfPackages.cbegin(), m_listOfPackages.cend(), [](const TListOfPackages::value_type& t){
-		return t->outdated();
+	return std::count_if(m_listOfPackages.cbegin(), m_listOfPackages.cend(), [=](const TListOfPackages::value_type& t){
+		return t->outdated() && (!noForeign || t->managedByYaourt == false);
 	});
 }
 

@@ -1,4 +1,8 @@
+v 0.0.0.2
 -   added support for Manjaro Linux
+-   system-update wont sync the repo (pacman -Su) if started with paramter -u
+-   pakman will use this parameter if there are updates known for pacman managed packages
+     it will still run pacman -Syu if there are no updates visible in the gui (foreign packages excluded) 
 
 v 0.0.0.1
 -   first public version

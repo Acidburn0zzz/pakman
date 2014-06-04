@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-# system-update, version 0
+# system-update, version 1
 #
 # runs a full system update using pacman and pacdiff afterwards
 # Copyright (C) 2014 Thomas Binkau
@@ -29,14 +29,24 @@ then
    exit $E_NOTROOT
 fi
 
-echo "root: pacman -Syu"
-/bin/pacman -Syu
+# Run update
+if [ "$#" -eq "1" ] && [ "$1" = "-u" ]
+then
+   echo "root: pacman -Su"
+   /bin/pacman -Su
+else
+   echo "root: pacman -Syu"
+   /bin/pacman -Syu
+fi
 echo
 
+# Run pacdiff
 echo "root: pacdiff"
 #export LANG=C; export LC_ALL=C
 #export DIFFPROG=meld
 export DIFFSEARCHPATH="/boot /etc /usr"
 /bin/pacdiff
 echo
+
+# Wait for input
 read -N 1 -p "finished. press any key to close"

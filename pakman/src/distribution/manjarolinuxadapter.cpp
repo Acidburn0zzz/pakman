@@ -20,6 +20,8 @@
 
 #include "manjarolinuxadapter.h"
 
+#include <QRegExp>
+
 
 ManjaroLinuxAdapter::ManjaroLinuxAdapter()
 {
@@ -45,6 +47,11 @@ bool ManjaroLinuxAdapter::retrieveNews(QString &output) const
 QString ManjaroLinuxAdapter::formatNews(const QString& link, const QString& title, const QString& date,
                                         const QString& text) const
 {
+	QRegExp remImg;
+	remImg.setMinimal(true);
+	remImg.setPattern("<img.*>");
+	QString news = text;
+	news.replace(remImg, QString());
 	return "<table style=\"margin-top:5px;\"><tr><td><a href=\"" + link + "\"><b><big>" + title
-	    + "</b></big></a>  (" + date + ")<br><br>" + text + "</td></tr></table>";
+	    + "</b></big></a>  (" + date + ")<br>" + news + "</td></tr></table>";
 }

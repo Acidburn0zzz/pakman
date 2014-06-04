@@ -180,7 +180,7 @@ public:
 
 	std::size_t countTotal() const;
 	std::size_t countInstalled() const;
-	std::size_t countOutdated() const;
+	std::size_t countOutdated(const bool noForeign) const;
 
 private:
 	std::vector<IDependency*> m_dependingModels;

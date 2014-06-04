@@ -497,7 +497,7 @@ void MainWindow::endResetRepository(PackageRepository::EResetType type)
 	if (type == PackageRepository::eResetGroupList)
 		return;
 
-	m_statusbar->updatePackagesInfo(m_pkgRepo.countInstalled(), m_pkgRepo.countOutdated(), m_pkgRepo.countTotal());
+	m_statusbar->updatePackagesInfo(m_pkgRepo.countInstalled(), m_pkgRepo.countOutdated(false), m_pkgRepo.countTotal());
 }
 
 void MainWindow::on_actionRoot_Terminal_triggered()
@@ -508,9 +508,13 @@ void MainWindow::on_actionRoot_Terminal_triggered()
 void MainWindow::on_actionSystem_Upgrade_triggered()
 {
 	// Does not prevent all execution events (just block for the time being and exec later), analyse if acceptable
-	if (m_cpu.schedule(TaskProcessor::OnlyOne, [this](){
+	// If outdated packages exist, just run pacman -Su on current status and do not sync repo
+	QString parameters;
+	if (m_pkgRepo.countOutdated(true)) parameters = " -u";
+
+	if (m_cpu.schedule(TaskProcessor::OnlyOne, [this, parameters](){
 			updateStatusStartOfTask(strTaskSystemUpgrade());
-			Terminal::runSyncInRootTerminal(strScriptsDir() + strSystemUpdateScript());
+			Terminal::runSyncInRootTerminal(strScriptsDir() + strSystemUpdateScript() + parameters);
 			return [this](){
 					triggerRepoRefresh();
 					updateStatusRunningTask(500);

@@ -180,7 +180,11 @@ QString InfoTabs::parseRssNews(const QString& news, const DistributionInfo& form
 						{
 							itemLink = eText.text();
 						}
-						else if (eText.tagName() == "description")
+						else if (eText.tagName() == "content:encoded")
+						{
+							itemDescription = eText.text();
+						}
+						else if (eText.tagName() == "description" && itemDescription.isEmpty())
 						{
 							itemDescription = eText.text();
 						}
