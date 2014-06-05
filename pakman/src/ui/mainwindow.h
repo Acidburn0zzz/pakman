@@ -112,6 +112,7 @@ private slots:
 	void selectionChanged(const QItemSelection&, const QItemSelection&);
 	void filterChanged(const DefaultPackageFilter* newFilter);
 	void loadGroupMemberList(QString group); // loads only if not already available
+	void onRequestForContextMenu(QPoint, QList<const PackageRepository::PackageData*>*);
 	// Search LineEdit
 	void searchEditChanged(const QString&);
 	// Status Bar
@@ -138,6 +139,9 @@ private slots:
 	void on_actionPacman_Log_Viewer_triggered();
 	// Synchronize with AUR
 	void on_actionAUR_triggered();
+	// Context-Menu
+	void actionInstallNow_triggered();
+	void actionRemoveNow_triggered();
 
 private:
 	TaskProcessor&    m_cpu;

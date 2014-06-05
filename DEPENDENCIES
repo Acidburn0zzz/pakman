@@ -11,6 +11,7 @@ vimdiff     (for pacdiff)
 
 provides:
 "%scriptdir/system-update"        (full system update .)
+"%scriptdir/pakman-install"       (install / remove packages and merge config .)
 "%documentationdir/pakman.html"   (integrated help)
 
 in progress:

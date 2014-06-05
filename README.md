@@ -2,7 +2,8 @@ pakman
 ======
 
 A pacman frontend for KDE4
-======
+http://tbinkau.github.io/pakman/
+
 
 This project is for educational purpose only and comes with ABSOLUTELY NO WARRANTY.
 Even though i try to keep it bug free, i neither have the time nor the resources

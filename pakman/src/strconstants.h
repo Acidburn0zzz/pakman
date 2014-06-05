@@ -29,11 +29,13 @@
 const char* strAppName();
 const char* strAppVersion();
 const char* strAppHomepage();
+const char* strGitHomepage();
 QString     strForeignRepository();
 QString     strPacmanGroup();
 QString     strCacheDir();
 QString     strDocumentationDir();
 QString     strScriptsDir();
+const char* strSystemInstallScript();
 const char* strSystemUpdateScript();
 
 /// Application (translated)
@@ -101,6 +103,7 @@ QString strTaskLoadingForeignPackages();
 QString strTaskLoadingGroups();
 QString strTaskLoadingNews();
 QString strTaskLoadingPackages();
+QString strTaskSystemInstall();
 QString strTaskSystemUpgrade();
 QString strTaskSynchronizeRepo();
 QString strTaskUpdateAurInfo();

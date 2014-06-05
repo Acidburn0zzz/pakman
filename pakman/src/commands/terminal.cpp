@@ -47,7 +47,6 @@ void Terminal::openRootTerminal()
 
 void Terminal::runSyncInRootTerminal(const QString& command)
 {
-	QProcess terminal;
 	QString cmd;
 
 	if (geteuid() == 0) // Root
@@ -63,7 +62,5 @@ void Terminal::runSyncInRootTerminal(const QString& command)
 	cmd += command;
 	cmd += "\"";
 
-	terminal.start(cmd);
-	terminal.waitForFinished(-1);
-	terminal.close();
+	system(cmd.toLatin1());
 }

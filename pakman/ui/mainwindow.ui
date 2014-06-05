@@ -345,6 +345,16 @@
     </font>
    </property>
   </action>
+  <action name="actionInstall_now">
+   <property name="text">
+    <string>Install now</string>
+   </property>
+  </action>
+  <action name="actionRemove_now">
+   <property name="text">
+    <string>Remove now</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>

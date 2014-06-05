@@ -1,3 +1,6 @@
+v 0.0.0.3
+-   install / remove packages directly from the ui
+
 v 0.0.0.2
 -   added support for Manjaro Linux
 -   system-update wont sync the repo (pacman -Su) if started with paramter -u

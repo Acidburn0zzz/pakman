@@ -47,7 +47,7 @@ public:
 		eTaskShutdown,        // will be the last task accepted
 		eTaskFetchPackageListForeign,
 		eTaskSynchronizeRepo,
-		eTaskSystemUpgrade,
+		eTaskPacman,
 		eTaskUpdateDistributionNews,
 		eTaskUpdateGroupList,
 		eTaskUpdateGroupMembers,

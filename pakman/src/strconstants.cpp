@@ -34,13 +34,21 @@ const char* strAppName()
  */
 const char* strAppVersion()
 {
-	return "0.0.0.2";
+	return "0.0.0.3";
 }
 
 /**
  * @brief used for homepage links e.g. in about box
  */
 const char* strAppHomepage()
+{
+	return "http://tbinkau.github.io/pakman/";
+}
+
+/**
+ * @brief used for homepage links e.g. in about box
+ */
+const char* strGitHomepage()
 {
 	return "https://github.com/tbinkau";
 }
@@ -83,6 +91,14 @@ QString strDocumentationDir()
 QString strScriptsDir()
 {
 	return QString("/usr/bin/");
+}
+
+/**
+ * @brief for configurable script name of the pakman-install bash script
+ */
+const char* strSystemInstallScript()
+{
+	return "pakman-install";
 }
 
 /**
@@ -508,6 +524,13 @@ QString strTaskLoadingNews()
 QString strTaskLoadingPackages()
 {
 	return QObject::tr("loading packages");
+}
+/**
+ * @brief used for status bar when running pacman-install
+ */
+QString strTaskSystemInstall()
+{
+	return QObject::tr("running installation process");
 }
 
 /**

@@ -26,6 +26,7 @@
 
 #include <QWidget>
 #include <QItemSelection>
+#include <QPoint>
 #include "src/data/model/packagemodel.h"
 
 
@@ -51,15 +52,24 @@ public:
 	}
 
 	int getSelectedPackageCount() const;
+	QString getSelectedPackageNames(const bool qualified);
 
 	const PackageRepository::PackageData* getFirstSelectedPackage() const;
 	const PackageRepository::PackageData* getLastSelectedPackage() const;
 
 signals:
 	void selectionChanged(const QItemSelection&, const QItemSelection&);
+	/**
+	 * @brief request for ContextMenu
+	 * List must be deleted by receiver, only for one receiver and for direct connection !
+	 */
+	void requestContextMenu(QPoint, QList<const PackageRepository::PackageData*>*);
 
 public slots:
 	void sort(int column, Qt::SortOrder order);
+
+private slots:
+	void customContextMenuRequested(QPoint);
 
 private:
 	Ui::PackageView *ui;

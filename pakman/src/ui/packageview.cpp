@@ -31,9 +31,12 @@ PackageView::PackageView(QWidget *parent)
 {
 	ui->setupUi(this);
 	ui->treeView->header()->setClickable(true);
+	ui->treeView->setContextMenuPolicy(Qt::CustomContextMenu);
 
 	connect(ui->treeView->header(), SIGNAL(sortIndicatorChanged(int,Qt::SortOrder)), this,
 	        SLOT(sort(int,Qt::SortOrder)));
+	connect(ui->treeView, SIGNAL(customContextMenuRequested(QPoint)), this,
+	        SLOT(customContextMenuRequested(QPoint)));
 }
 
 PackageView::~PackageView()
@@ -130,4 +133,56 @@ void PackageView::sort(int column, Qt::SortOrder order)
 	        SLOT(sort(int,Qt::SortOrder)));
 
 	//TODO: saveSettings ?!
+}
+
+void PackageView::customContextMenuRequested(QPoint pt)
+{
+	const QItemSelectionModel*const selectionModel = ui->treeView->selectionModel();
+	if (selectionModel == nullptr)
+		return;
+
+	assert(m_pkgViewModel != nullptr);
+
+	const QModelIndexList indexes = selectionModel->selectedRows(PackageModel::ctn_PACKAGE_NAME_COLUMN);
+	if (indexes.isEmpty())
+		return;
+
+	QList<const PackageRepository::PackageData*>*const list = new QList<const PackageRepository::PackageData*>();
+
+	foreach(const QModelIndex index, indexes) {
+		const PackageRepository::PackageData*const package = m_pkgViewModel->getData(index);
+		if (package != nullptr) {
+			list->append(package);
+		}
+	}
+
+	QPoint pt2 = ui->treeView->mapToGlobal(pt);
+	pt2.setY(pt2.y() + ui->treeView->header()->height());
+
+	emit requestContextMenu(pt2, list);
+}
+
+QString PackageView::getSelectedPackageNames(const bool qualified)
+{
+	const QItemSelectionModel*const selectionModel = ui->treeView->selectionModel();
+	if (selectionModel == nullptr)
+		return QString();
+
+	assert(m_pkgViewModel != nullptr);
+
+	const QModelIndexList indexes = selectionModel->selectedRows(PackageModel::ctn_PACKAGE_NAME_COLUMN);
+	if (indexes.isEmpty())
+		return QString();
+
+	QString arg;
+
+	foreach(const QModelIndex index, indexes) {
+		const PackageRepository::PackageData*const package = m_pkgViewModel->getData(index);
+		if (package != nullptr) {
+			arg += " ";
+			if (qualified) arg += package->repository + "/";
+			arg += package->name;
+		}
+	}
+	return arg;
 }

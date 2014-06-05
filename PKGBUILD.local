@@ -1,0 +1,36 @@
+# Maintainer: Thomas Binkau <thomas.binkau[ad]gmx[dod]net>
+pkgname=('pakman')
+pkgver=0.0.0.3
+pkgrel=1
+pkgdesc="A pacman frontend for KDE4"
+arch=('i686' 'x86_64')
+url="https://github.com/tbinkau"
+license=('GPL2')
+install=$pkgname.install
+#makedepends=('git')
+depends=('qt4' 'qjson' 'kdebase-konsole' 'curl' 'bash')
+optdepends=('vim: for config merging'
+            'pacmanlogviewer: for browsing pacman history')
+#source=("pakman")
+        
+build() {
+    cpucount=$(grep -c processor /proc/cpuinfo 2>/dev/null)
+    jc=$((${cpucount:-1}))
+
+    #cd "$srcdir"
+    msg "Starting build..."
+
+    cd $startdir/pakman
+    qmake-qt4 pakman.pro
+    make -j $jc
+}
+
+package_pakman() {
+   #executable files
+   install -D -m755 $startdir/build/release/pakman ${pkgdir}/usr/bin/$pkgname
+   install -D -m755 $startdir/pakman/scripts/system-update ${pkgdir}/usr/bin/system-update
+   install -D -m755 $startdir/pakman/scripts/pakman-install ${pkgdir}/usr/bin/pakman-install
+   
+   #help files
+   install -D -m644 $startdir/pakman/pakman.html ${pkgdir}/usr/share/doc/pakman/pakman.html
+}

@@ -54,6 +54,11 @@ MainWindow::MainWindow(DistributionInfo& distribution, TaskProcessor& cpu,
 	// PackageView stage2 - connect signals (package selection)
 	connect(ui->packageView, SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
 	        this, SLOT(selectionChanged(QItemSelection,QItemSelection)));
+	connect(ui->packageView, SIGNAL(requestContextMenu(QPoint, QList<const PackageRepository::PackageData*>*)),
+	        this, SLOT(onRequestForContextMenu(QPoint, QList<const PackageRepository::PackageData*>*)),
+	        Qt::DirectConnection);
+	connect(ui->actionInstall_now, SIGNAL(triggered()), this, SLOT(actionInstallNow_triggered()));
+	connect(ui->actionRemove_now, SIGNAL(triggered()), this, SLOT(actionRemoveNow_triggered()));
 	// GroupBox stage2 - connect signals (group selection, deferred loading)
 	connect(ui->groupBox, SIGNAL(filterUpdate(const DefaultPackageFilter*)),
 	        this, SLOT(filterChanged(const DefaultPackageFilter*)));
@@ -331,6 +336,40 @@ void MainWindow::loadGroupMemberList(QString group)
 	}
 }
 
+void MainWindow::onRequestForContextMenu(QPoint pt, QList<const PackageRepository::PackageData*>* list)
+{
+	if (list->isEmpty())
+		return;
+
+	QMenu* menu = new QMenu(this);
+
+	bool install = true;
+	bool remove  = true;
+	foreach (const PackageRepository::PackageData* package, *list) {
+		if (package->installed()) {
+			install = false;
+		}
+		else {
+			if (package->managedByYaourt) return;
+			remove = false;
+		}
+	}
+
+	if (install) {
+		ui->actionInstall_now->setEnabled(true);
+		menu->addAction(ui->actionInstall_now);
+	} else {
+		if (remove) {
+			menu->addAction(ui->actionRemove_now);
+		}
+		else {
+			ui->actionInstall_now->setEnabled(false);
+			menu->addAction(ui->actionInstall_now);
+		}
+	}
+	menu->exec(pt);
+}
+
 void MainWindow::searchEditChanged(const QString& text)
 {
 	auto fnc = std::bind(&MainWindow::applySearchFilter, this, std::placeholders::_1, text);
@@ -519,7 +558,7 @@ void MainWindow::on_actionSystem_Upgrade_triggered()
 					triggerRepoRefresh();
 					updateStatusRunningTask(500);
 			};
-	}, TaskProcessor::eTaskSystemUpgrade)) {
+	}, TaskProcessor::eTaskPacman)) {
 	//then
 		updateStatusNewTask(500);
 	}
@@ -555,11 +594,12 @@ void MainWindow::on_actionAbout_triggered()
 {
 	QString aboutText;
 	aboutText = QString("\
-<b>%1 - %2</b><br>%3<br><br>&copy; 2014 by Thomas Binkau<br><br>\
-<a href=\"%4\">%4</a><br><br><b>uses:</b><br>	%5<br>	QJson, pacman, curl, vim<br><br>\
+<b>%1 - %2</b><br>%3<br><br>&copy; 2014 by Thomas Binkau<br>\
+<a href=\"%4\">%4</a><br><a href=\"%8\">%8</a><br><br><b>uses:</b><br>	%5<br>	QJson, pacman, curl, vim<br><br>\
 %6:<a href=\"%7\">%7</a><br><b>%1 comes with ABSOLUTELY NO WARRANTY</b>")
 	    .arg(strAppName()).arg(strAppVersion()).arg(strAppDescription())
-	    .arg(strAppHomepage()).arg(strTechnologyUsed()).arg(strLicense()).arg("http://www.gnu.org/licenses/gpl-2.0.html");
+	    .arg(strGitHomepage()).arg(strTechnologyUsed()).arg(strLicense()).arg("http://www.gnu.org/licenses/gpl-2.0.html")
+	    .arg(strAppHomepage());
 
 	QMessageBox::about(this, strAbout(), aboutText);
 }
@@ -578,4 +618,46 @@ void MainWindow::on_actionPacman_Log_Viewer_triggered()
 void MainWindow::on_actionAUR_triggered()
 {
 	fetchAurInformationAsync();
+}
+
+void MainWindow::actionInstallNow_triggered()
+{
+	QString parameters(" -i \\\"");
+	parameters += ui->packageView->getSelectedPackageNames(true) + "\\\"";
+
+	if (m_cpu.schedule(TaskProcessor::OnlyOne, [this, parameters](){
+			updateStatusStartOfTask(strTaskSystemInstall());
+			Terminal::runSyncInRootTerminal(strScriptsDir() + strSystemInstallScript() + parameters);
+			return [this](){
+					triggerRepoRefresh();
+					updateStatusRunningTask(100);
+			};
+	}, TaskProcessor::eTaskPacman)) {
+	//then
+		updateStatusNewTask(100);
+	}
+	else {
+		//TODO: error notif
+	}
+}
+
+void MainWindow::actionRemoveNow_triggered()
+{
+	QString parameters(" -r \\\"");
+	parameters += ui->packageView->getSelectedPackageNames(false) + "\\\"";
+
+	if (m_cpu.schedule(TaskProcessor::OnlyOne, [this, parameters](){
+			updateStatusStartOfTask(strTaskSystemInstall());
+			Terminal::runSyncInRootTerminal(strScriptsDir() + strSystemInstallScript() + parameters);
+			return [this](){
+					triggerRepoRefresh();
+					updateStatusRunningTask(100);
+			};
+	}, TaskProcessor::eTaskPacman)) {
+	//then
+		updateStatusNewTask(100);
+	}
+	else {
+		//TODO: error notif
+	}
 }
